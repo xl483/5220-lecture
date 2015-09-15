@@ -8,13 +8,21 @@
     you should use a script to produce this plot, with both the serial
     fraction and the maximum number of cores as parameters.
 
+See PNG plots.
+
 2.  Suppose a particular program can be partitioned into perfectly
     independent tasks, each of which takes time tau.  Tasks are
     set up, scheduled, and communicated to p workers at a (serial)
     central server; this takes an overhead time alpha per task.
     What is the theoretically achievable throughput (tasks/time)?
 
+The last task finishes at time p * alpha + tau, hence the theoretical achievable throughput is
+p/(p * alpha + tau) = 1/(alpha + tau/p).
+
 3.  Under what circumstances is it best to not tune?
+
+When the amount of human time expended tuning exceeds the probable running time saved in the
+component being tuned.
 
 4.  The class cluster consists of eight nodes and fifteen Xeon Phi
     accelerator boards.  Based on an online search for information on
@@ -23,5 +31,18 @@
     you computed this, and give URLs for where you got the parameters
     in your calculation.  (We will return to this question again after
     we cover some computer architecture.)
-    
+
+Each Xeon Phi 5110P board gives 1010.88 GF/s, 15 such boards is 15 * 1010.88 GF/s = 15.1632 TF/s.
+Each E5-2520 core can perform at 120 GF/s, there are 8 boards of 12 cores each, so in total 96 * 120 GF/s = 11.52 TF/s.
+Combined total is 15.1632 + 11.52 = 26.6832 TF/s.
+
+http://download.intel.com/support/processors/xeon/sb/xeon_E5-2600.pdf
+http://www.intel.com/content/www/us/en/benchmarks/server/xeon-phi/xeon-phi-theoretical-maximums.html
+
 5.  What is the approximate theoretical peak flop rate for your own machine?
+
+My laptop runs a 4-core i7-4700MQ processor running at 3.4 GHz turbo.
+From the slides, the calculations are the same except there are 4 cores and the clock rate is 3.4 GHz.
+So my processor runs at 64 flops/cycle, multiplied by 3.4 *10^9 cycles/s = 217.6 GF/s.
+
+http://ark.intel.com/products/75117/Intel-Core-i7-4700MQ-Processor-6M-Cache-up-to-3_40-GHz
